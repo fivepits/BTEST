@@ -4,13 +4,21 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,8 +26,24 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     BluetoothAdapter mBluetoothAdapter = null;
 
+//    ImageView img01;
+//    ImageView img02;
+    ImageView[] iArray ;
+    ArrayList<ImageView> imgArry;
+    LinearLayout dataLayout;
+
+    int index=0;
+
+    int fwy;
+    int raf;
+    int bk1;
+    int bk2;
+    int grn;
+
+    boolean[] status;
+
     final int REQUEST_ENABLE_BT = 1; //任意のコード
-    UUID MY_UUID = UUID.fromString("00001112-0000-1000-8000-00805f9b34fb"); //IP
+    UUID MY_UUID = UUID.fromString("00001116-0000-1000-8000-00805f9b34fb"); //IP
 
     ArrayAdapter<String> mArrayAdapter;
 
@@ -48,8 +72,67 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        status = new boolean[20];
+
+        fwy = R.mipmap.fwy_mdpi;
+        raf = R.mipmap.raf_mdpi;
+        bk1 = R.mipmap.bk1_mdpi;
+        bk2 = R.mipmap.bk2_mdpi;
+        grn = R.mipmap.grn_mdpi;
+
+        dataLayout = (LinearLayout) findViewById( R.id.dataView);
+
+        imgArry = new ArrayList<ImageView>();
+        iArray = new ImageView[10];
     }
 
+    private void changeBtn(View view, int resValue) {
+        ImageView img = new ImageView(this);
+        img.setImageResource(resValue);
+        int w = ViewGroup.LayoutParams.MATCH_PARENT;
+        int c = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        img.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // クリック時の処理
+                int i = 0;
+                for (ImageView image: imgArry) {
+                    if(v.equals(image)) {
+                        break;
+                    }
+                    i++;
+                }
+                Toast.makeText(getApplicationContext(), "place=" +i, Toast.LENGTH_SHORT).show();
+                imgArry.remove(i);
+                dataLayout.removeViewAt(i);
+
+            }
+        });
+
+
+        dataLayout.addView(img, new LinearLayout.LayoutParams(c,c));
+        imgArry.add(img);
+    }
+
+    public void click_Btn1(View view) {
+        changeBtn(view, fwy);
+    }
+
+    public void click_Btn2(View view) {
+        changeBtn(view, raf);
+    }
+
+    public void click_Btn3(View view) {
+        changeBtn(view, bk1);
+    }
+
+    public void click_Btn4(View view) {
+        changeBtn(view, bk2);
+    }
+
+    public void click_Btn5(View view) {
+        changeBtn(view, grn);
+    }
 
     @Nullable
     private BluetoothDevice checkBT() {
@@ -63,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
         //BluetoothがONかどうか
         if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            mBluetoothAdapter.enable();
             setMessage("BuletoothをONにしました。");
         }
 
