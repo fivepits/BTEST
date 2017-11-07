@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         bk2 = R.mipmap.bk2_mdpi;
         grn = R.mipmap.grn_mdpi;
 
-         dataLayout = (LinearLayout) findViewById( R.id.dataView);
+        imgArry = new ArrayList<ImageView>();
+        dataLayout = (LinearLayout) findViewById( R.id.dataView);
 
 //        iArray = new ImageView[10];
     }
