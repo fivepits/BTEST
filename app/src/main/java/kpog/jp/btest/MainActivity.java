@@ -29,8 +29,11 @@ public class MainActivity extends AppCompatActivity {
 //    ImageView img01;
 //    ImageView img02;
     ImageView[] iArray ;
+
     ArrayList<ImageView> imgArry;
+
     LinearLayout dataLayout;
+
 
     int index=0;
 
@@ -80,10 +83,9 @@ public class MainActivity extends AppCompatActivity {
         bk2 = R.mipmap.bk2_mdpi;
         grn = R.mipmap.grn_mdpi;
 
-        dataLayout = (LinearLayout) findViewById( R.id.dataView);
+         dataLayout = (LinearLayout) findViewById( R.id.dataView);
 
-        imgArry = new ArrayList<ImageView>();
-        iArray = new ImageView[10];
+//        iArray = new ImageView[10];
     }
 
     private void changeBtn(View view, int resValue) {
